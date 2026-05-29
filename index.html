@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>SMILEDENT - Ricardo Morales</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+body { 
+  font-family: 'Poppins', Arial, sans-serif; 
+  margin: 0; 
+  padding: 0; 
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; 
+}
+header { 
+  background-color: #333; 
+  color: white; 
+  padding: 20px; 
+  text-align: center; 
+}
+header img { 
+  vertical-align: middle; 
+}
+header span { 
+  font-size: 30px; 
+  font-weight: bold; 
+  margin-left: 15px; 
+  vertical-align: middle; 
+}
+.contenedor-layout {
+  display: flex;
+  flex-direction: row;
+  flex: 1; 
+  width: 100%;
+}
+nav { 
+  background-color: #ddd; 
+  width: 230px; 
+  min-width: 230px;
+  border-right: 1px solid #999; 
+  padding: 20px;
+}
+nav ul { 
+  list-style: none; 
+  margin: 0; 
+  padding: 0; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 12px; 
+}
+nav a { 
+  text-decoration: none; 
+  color: blue; 
+  font-weight: bold; 
+  display: block;
+  padding: 10px;
+  background-color: #eee;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  cursor: pointer;
+}
+nav a:hover, nav a.activo {
+  background-color: #fff; 
+  border-color: blue;
+}
+main { 
+  background-color: #999; 
+  padding: 40px; 
+  flex: 1; 
+  display: flex; 
+  justify-content: center; 
+  align-items: flex-start;
+}
+.cuadro-blanco { 
+  background-color: white; 
+  padding: 30px; 
+  width: 100%; 
+  max-width: 1000px;
+  border: 1px solid #555; 
+}
+.seccion-contenido {
+  display: none;
+}
+.seccion-contenido.activa {
+  display: block;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+  font-size: 14px;
+}
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+footer { 
+  background-color: #333; 
+  color: white; 
+  text-align: center; 
+  padding: 20px; 
+}
+
+/* Estilos de Formulario Completo e Integrado */
+.form-container {
+  width: 100%;
+  margin: 20px auto 0 auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); 
+  border-top: 6px solid #333; 
+  box-sizing: border-box;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.form-group {
+  margin-bottom: 5px;
+}
+.form-group.full-width {
+  grid-column: span 2;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #444;
+  font-size: 14px;
+}
+.form-group input[type="text"], 
+.form-group input[type="number"], 
+.form-group input[type="date"],
+.form-group input[type="email"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  background-color: #fafafa;
+  color: #333;
+  box-sizing: border-box;
+  transition: all 0.3s ease; 
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #333; 
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(51, 51, 51, 0.3);
+}
+.btn-submit {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 14px 15px;
+  width: 100%;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  transition: background-color 0.3s ease;
+  margin-top: 15px;
+  grid-column: span 2;
+}
+.btn-submit:hover {
+  background-color: #555; 
+}
+
+@media (max-width: 750px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-group.full-width {
+    grid-column: span 1;
+  }
+  .btn-submit {
+    grid-column: span 1;
+  }
+}
+</style>
+</head>
+<body>
+
+  <header>
+    <img src="1.png" width="80" alt="Logo SMILEDENT">
+    <span>SMILEDENT</span>
+  </header>
+
+  <div class="contenedor-layout">
+    
+    <nav>
+      <ul>
+        <li><a onclick="mostrarSeccion('inicio', this)" class="activo">Inicio</a></li>
+        <li><a onclick="mostrarSeccion('agenda', this)">Agenda y Finanzas</a></li>
+        <li><a onclick="mostrarSeccion('seguridad', this)">Seguridad Clínica</a></li>
+        <li><a onclick="mostrarSeccion('identidad', this)">Identidad y Salud</a></li>
+        <li><a onclick="mostrarSeccion('alta-pacientes', this)">Nuevo Registro</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <div class="cuadro-blanco">
+        
+        <div id="inicio" class="seccion-contenido activa">
+          <h2>INFORMACIÓN DE LA CLÍNICA</h2>
+          <p>"SMILEDENT - Tu Sonrisa, Nuestra Prioridad"</p>
+          <p>Contamos con tecnología odontológica de vanguardia y un equipo de profesionales dedicados a la salud dental de nuestra comunidad. Selecciona un módulo del menú lateral para consultar los registros del sistema.</p>
+        </div>
+
+        <div id="agenda" class="seccion-contenido">
+          <h2>Gestión de Agenda y Finanzas</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Paciente ID</th>
+                <th>Nombre</th>
+                <th>Archivo/Estudio</th>
+                <th>Doctor(a)</th>
+                <th>Cédula</th>
+                <th>Especialidad</th>
+                <th>Pago ($)</th>
+                <th>Folio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>002</td><td>Ana López</td><td>Serie Periapical</td><td>Dra. Elena Morales</td><td>1234560</td><td>Endodoncia</td><td>2500</td><td>ADM-2026-002</td></tr>
+              <tr><td>003</td><td>Jorge Ramírez</td><td>Set Fotográfico HD</td><td>Dr. Roberto Pérez</td><td>9876542</td><td>Rehabilitación</td><td>8000</td><td>ADM-2026-003</td></tr>
+              <tr><td>004</td><td>María Torres</td><td>Mapeo Intraoral</td><td>Dra. Sofía Sánchez</td><td>3456782</td><td>Odont. General</td><td>3500</td><td>ADM-2026-004</td></tr>
+              <tr><td>005</td><td>Luis Herrera</td><td>RX Digital Visiógrafo</td><td>Dr. Mario Ramírez</td><td>5678901</td><td>Endodoncia</td><td>4200</td><td>ADM-2026-005</td></tr>
+              <tr><td>006</td><td>Sofía Martínez</td><td>Cefalometría Computarizada</td><td>Dra. Lucía López</td><td>2345671</td><td>Ortodoncia</td><td>15000</td><td>ADM-2026-006</td></tr>
+              <tr><td>007</td><td>Ricardo Peña</td><td>RX Coronaria (Bitewing)</td><td>Dr. Hugo Torres</td><td>6789012</td><td>Prótesis</td><td>6000</td><td>ADM-2026-007</td></tr>
+              <tr><td>008</td><td>Elena Vega</td><td>Fotografía de Perfil Facial</td><td>Dra. Karla Castro</td><td>8901234</td><td>Odont. Estética</td><td>12000</td><td>ADM-2026-008</td></tr>
+              <tr><td>009</td><td>Pablo Ríos</td><td>Tomografía Cone Beam</td><td>Dr. Javier Ruiz</td><td>9012345</td><td>Implantología</td><td>20000</td><td>ADM-2026-009</td></tr>
+              <tr><td>010</td><td>Diana Solís</td><td>Registro Fotográfico Control</td><td>Dra. Mónica Ortiz</td><td>0123456</td><td>Periodoncia</td><td>12000</td><td>ADM-2026-010</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="seguridad" class="seccion-contenido">
+          <h2>Clínica y Seguridad</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Paciente ID</th>
+                <th>Hallazgo Clínico</th>
+                <th>Evolución</th>
+                <th>Seguridad</th>
+                <th>Acceso</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>002</td><td>Tercer molar impactado</td><td>Cicatrización post-op</td><td>AES-256</td><td>Nivel 3</td></tr>
+              <tr><td>003</td><td>Edentulismo Parcial</td><td>Ajuste protésico</td><td>AES-256</td><td>Doctor</td></tr>
+              <tr><td>004</td><td>Cromatismo dental</td><td>Sensibilidad dental</td><td>AES-256</td><td>Nivel 3</td></tr>
+              <tr><td>005</td><td>Absceso Periapical (K04.7)</td><td>Conductometría final</td><td>AES-256</td><td>Nivel 3</td></tr>
+              <tr><td>006</td><td>Maloclusión Clase II</td><td>Ajuste ortodoncia</td><td>AES-256</td><td>Nivel 3</td></tr>
+              <tr><td>007</td><td>Fractura Coronaria pza 21</td><td>Prep. corona E-max</td><td>AES-256</td><td>Doctor</td></tr>
+              <tr><td>008</td><td>Bruxismo / Desgaste</td><td>Impresión carillas</td><td>AES-256</td><td>Doctor</td></tr>
+              <tr><td>009</td><td>Reabsorción Ósea</td><td>Oseointegración</td><td>AES-256</td><td>Admin</td></tr>
+              <tr><td>010</td><td>Gingivitis por placa</td><td>Limpieza ultrasonido</td><td>AES-256</td><td>Nivel 3</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="identidad" class="seccion-contenido">
+          <h2>Identidad y Salud</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>RFC</th>
+                <th>Ocupación</th>
+                <th>Dirección</th>
+                <th>Condición Salud</th>
+                <th>Emergencia Contacto</th>
+                <th>Teléfono</th>
+                <th>Edad</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>002</td><td>Ana López García</td><td>LOGA910210-GT1</td><td>Docente</td><td>Insurgentes Sur 45, CDMX</td><td>Sano</td><td>Jorge López (55-1112-2233)</td><td>55-1234-5678</td><td>28</td><td>ana.logar@gmail.com</td></tr>
+              <tr><td>003</td><td>Jorge Ramírez Soto</td><td>RASJ630320-LRS</td><td>Pensionado</td><td>Roma Nte. 88, CDMX</td><td>Hipertensión</td><td>María Soto (55-3334-4455)</td><td>55-8877-6655</td><td>62</td><td>jorge.ramirez@gmail.com</td></tr>
+              <tr><td>004</td><td>María Torres Díaz</td><td>TODM980412-RS2</td><td>Estudiante</td><td>Polanco Secc. 12, CDMX</td><td>Gastritis y Polvo</td><td>Rosa Díaz (55-7778-8899)</td><td>55-2233-4455</td><td>26</td><td>m.torres@gmail.com</td></tr>
+              <tr><td>005</td><td>Luis Herrera León</td><td>HELH740625-HS9</td><td>Comerciante</td><td>Del Valle 5, CDMX</td><td>Lipemia y Mariscos</td><td>Carmen León (55-1998-8776)</td><td>55-6655-4433</td><td>49</td><td>l.herrera@gmail.com</td></tr>
+              <tr><td>006</td><td>Sofía Martínez Cruz</td><td>MACS051122-RT4</td><td>Estudiante</td><td>Coyoacán 210, CDMX</td><td>Anemia leve</td><td>Pedro Martínez (55-6667-778)</td><td>55-0011-2233</td><td>21</td><td>sofia.mtz@gmail.com</td></tr>
+              <tr><td>007</td><td>Ricardo Peña Luna</td><td>PELR870705-PL0</td><td>Arquitecto</td><td>Amsterdam 14, CDMX</td><td>Migraña e Ibuprofeno</td><td>Claudia Luna (55-4443-3322)</td><td>55-4433-2211</td><td>37</td><td>r.pena@gmail.com</td></tr>
+              <tr><td>008</td><td>Elena Vega Blas</td><td>VEBE951010-VB3</td><td>Diseñadora</td><td>Santa Fe 400, CDMX</td><td>Asma y Látex</td><td>Alberto Vega (55-2221-1100)</td><td>55-7788-9900</td><td>30</td><td>e.vega@gmail.com</td></tr>
+              <tr><td>009</td><td>Pablo Ríos Mora</td><td>RIMP820315-RM7</td><td>Contador</td><td>Lindavista 402, CDMX</td><td>Hipotiroidismo y Sulfas</td><td>Lucía Mora (55-9990-0011)</td><td>55-9900-1122</td><td>42</td><td>pablo.rios@gmail.com</td></tr>
+              <tr><td>010</td><td>Diana Solís Orta</td><td>SOOD921212-SO4</td><td>Abogada</td><td>Tlalpan Centro 9, CDMX</td><td>Sano</td><td>Sergio Solís (55-8889-9900)</td><td>55-3344-5566</td><td>33</td><td>diana.solis@gmail.com</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="alta-pacientes" class="seccion-contenido">
+          <h2>Registro Integral de Pacientes</h2>
+          <div class="form-container">
+            <form onsubmit="validarRegistro(event)">
+              <div class="form-grid">
+                
+                <div class="form-group">
+                  <label>ID del Paciente:</label>
+                  <input type="number" name="id_paciente" placeholder="Ej: 002" required>
+                </div>
+
+                <div class="form-group">
+                  <label>RFC:</label>
+                  <input type="text" name="rfc" placeholder="Ej: LOGA910210-GT1" required>
+                </div>
+
+                <div class="form-group full-width">
+                  <label>Nombre Completo:</label>
+                  <input type="text" name="nombre" placeholder="Ej: Ana López García" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Edad:</label>
+                  <input type="number" name="edad" placeholder="Ej: 28" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Ocupación:</label>
+                  <input type="text" name="ocupacion" placeholder="Ej: Docente" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Teléfono:</label>
+                  <input type="text" name="telefono" placeholder="Ej: 55-1234-5678" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Correo Electrónico:</label>
+                  <input type="email" name="email" placeholder="Ej: ana.logar@gmail.com" required>
+                </div>
+
+                <div class="form-group full-width">
+                  <label>Dirección Particular:</label>
+                  <input type="text" name="direccion" placeholder="Ej: Insurgentes Sur 45, CDMX" required>
+                </div>
+
+                <div class="form-group full-width">
+                  <label>Contacto de Emergencia (Nombre y Teléfono):</label>
+                  <input type="text" name="contacto_emergencia" placeholder="Ej: Jorge López (55-1112-2233)" required>
+                </div>
+
+                <div class="form-group full-width">
+                  <label>Condición de Salud / Alergias:</label>
+                  <input type="text" name="condicion_salud" placeholder="Ej: Hipertensión / Alergia al látex / Sano" required>
+                </div>
+
+                <div class="form-group full-width">
+                  <label>Hallazgo Clínico Inicial:</label>
+                  <textarea name="hallazgo_clinico" rows="2" placeholder="Ej: Tercer molar impactado / Edentulismo Parcial"></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label>Doctor(a) Asignado(a):</label>
+                  <input type="text" name="doctor" placeholder="Ej: Dra. Elena Morales" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Especialidad Médica:</label>
+                  <input type="text" name="especialidad" placeholder="Ej: Endodoncia" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Costo del Tratamiento ($):</label>
+                  <input type="number" name="pago" placeholder="Ej: 2500" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Folio de Control:</label>
+                  <input type="text" name="folio" placeholder="Ej: ADM-2026-002" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Guardar Registro Clínico</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <footer>
+    <p><strong>Nombre completo:</strong> Ricardo Morales Olmos</p>
+    <p><strong>N.º de control:</strong> 24308051280597</p>
+    <p><strong>Semestre y Grupo:</strong> 4-I</p>
+    <p><strong>Especialidad:</strong> Programación</p>
+  </footer>
+
+<script>
+function mostrarSeccion(idSeccion, elementoBoton) {
+  const secciones = document.querySelectorAll('.seccion-contenido');
+  secciones.forEach(sec => sec.classList.remove('activa'));
+
+  const botones = document.querySelectorAll('nav a');
+  botones.forEach(btn => btn.classList.remove('activo'));
+
+  document.getElementById(idSeccion).classList.add('activa');
+
+  elementoBoton.classList.add('activo');
+}
+
+function validarRegistro(event) {
+  event.preventDefault(); 
+  alert("¡Registro completo guardado exitosamente en el sistema!");
+  event.target.reset(); 
+}
+</script>
+
+</body>
+</html>
