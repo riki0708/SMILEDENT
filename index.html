@@ -314,82 +314,82 @@ footer {
         <div id="alta-pacientes" class="seccion-contenido">
           <h2>Registro Integral de Pacientes</h2>
           <div class="form-container">
-            <form onsubmit="validarRegistro(event)">
+            <form onsubmit="registrarPacienteEcosistema(event)">
               <div class="form-grid">
                 
                 <div class="form-group">
                   <label>ID del Paciente:</label>
-                  <input type="number" name="id_paciente" placeholder="Ej: 002" required>
+                  <input type="number" id="id_paciente" placeholder="Ej: 002" required>
                 </div>
 
                 <div class="form-group">
                   <label>RFC:</label>
-                  <input type="text" name="rfc" placeholder="Ej: LOGA910210-GT1" required>
+                  <input type="text" id="rfc" placeholder="Ej: LOGA910210-GT1" required>
                 </div>
 
                 <div class="form-group full-width">
                   <label>Nombre Completo:</label>
-                  <input type="text" name="nombre" placeholder="Ej: Ana López García" required>
+                  <input type="text" id="nombre" placeholder="Ej: Ana López García" required>
                 </div>
 
                 <div class="form-group">
                   <label>Edad:</label>
-                  <input type="number" name="edad" placeholder="Ej: 28" required>
+                  <input type="number" id="edad" placeholder="Ej: 28" required>
                 </div>
 
                 <div class="form-group">
                   <label>Ocupación:</label>
-                  <input type="text" name="ocupacion" placeholder="Ej: Docente" required>
+                  <input type="text" id="ocupacion" placeholder="Ej: Docente" required>
                 </div>
 
                 <div class="form-group">
                   <label>Teléfono:</label>
-                  <input type="text" name="telefono" placeholder="Ej: 55-1234-5678" required>
+                  <input type="text" id="telefono" placeholder="Ej: 55-1234-5678" required>
                 </div>
 
                 <div class="form-group">
                   <label>Correo Electrónico:</label>
-                  <input type="email" name="email" placeholder="Ej: ana.logar@gmail.com" required>
+                  <input type="email" id="email" placeholder="Ej: ana.logar@gmail.com" required>
                 </div>
 
                 <div class="form-group full-width">
                   <label>Dirección Particular:</label>
-                  <input type="text" name="direccion" placeholder="Ej: Insurgentes Sur 45, CDMX" required>
+                  <input type="text" id="direccion" placeholder="Ej: Insurgentes Sur 45, CDMX" required>
                 </div>
 
                 <div class="form-group full-width">
                   <label>Contacto de Emergencia (Nombre y Teléfono):</label>
-                  <input type="text" name="contacto_emergencia" placeholder="Ej: Jorge López (55-1112-2233)" required>
+                  <input type="text" id="contacto_emergencia" placeholder="Ej: Jorge López (55-1112-2233)" required>
                 </div>
 
                 <div class="form-group full-width">
                   <label>Condición de Salud / Alergias:</label>
-                  <input type="text" name="condicion_salud" placeholder="Ej: Hipertensión / Alergia al látex / Sano" required>
+                  <input type="text" id="condicion_salud" placeholder="Ej: Hipertensión / Alergia al látex / Sano" required>
                 </div>
 
                 <div class="form-group full-width">
                   <label>Hallazgo Clínico Inicial:</label>
-                  <textarea name="hallazgo_clinico" rows="2" placeholder="Ej: Tercer molar impactado / Edentulismo Parcial"></textarea>
+                  <textarea id="hallazgo_clinico" rows="2" placeholder="Ej: Tercer molar impactado / Edentulismo Parcial"></textarea>
                 </div>
 
                 <div class="form-group">
                   <label>Doctor(a) Asignado(a):</label>
-                  <input type="text" name="doctor" placeholder="Ej: Dra. Elena Morales" required>
+                  <input type="text" id="doctor" placeholder="Ej: Dra. Elena Morales" required>
                 </div>
 
                 <div class="form-group">
                   <label>Especialidad Médica:</label>
-                  <input type="text" name="especialidad" placeholder="Ej: Endodoncia" required>
+                  <input type="text" id="especialidad" placeholder="Ej: Endodoncia" required>
                 </div>
 
                 <div class="form-group">
                   <label>Costo del Tratamiento ($):</label>
-                  <input type="number" name="pago" placeholder="Ej: 2500" required>
+                  <input type="number" id="pago" placeholder="Ej: 2500" required>
                 </div>
 
                 <div class="form-group">
                   <label>Folio de Control:</label>
-                  <input type="text" name="folio" placeholder="Ej: ADM-2026-002" required>
+                  <input type="text" id="folio" placeholder="Ej: ADM-2026-002" required>
                 </div>
 
                 <button type="submit" class="btn-submit">Guardar Registro Clínico</button>
@@ -423,10 +423,46 @@ function mostrarSeccion(idSeccion, elementoBoton) {
   elementoBoton.classList.add('activo');
 }
 
-function validarRegistro(event) {
+async function registrarPacienteEcosistema(event) {
   event.preventDefault(); 
-  alert("¡Registro completo guardado exitosamente en el sistema!");
-  event.target.reset(); 
+
+  const datosPaciente = {
+    id_paciente: document.getElementById("id_paciente").value,
+    rfc: document.getElementById("rfc").value,
+    nombre: document.getElementById("nombre").value,
+    edad: document.getElementById("edad").value,
+    ocupacion: document.getElementById("ocupacion").value,
+    telefono: document.getElementById("telefono").value,
+    email: document.getElementById("email").value,
+    direccion: document.getElementById("direccion").value,
+    contacto_emergencia: document.getElementById("contacto_emergencia").value,
+    condicion_salud: document.getElementById("condicion_salud").value,
+    hallazgo_clinico: document.getElementById("hallazgo_clinico").value,
+    doctor: document.getElementById("doctor").value,
+    especialidad: document.getElementById("especialidad").value,
+    pago: document.getElementById("pago").value,
+    folio: document.getElementById("folio").value
+  };
+
+  try {
+    const respuesta = await fetch('http://localhost:5000/api/pacientes', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(datosPaciente)
+    });
+
+    const resultado = await respuesta.json();
+
+    if(respuesta.ok) {
+      alert("Registro guardado de forma exitosa: " + resultado.mensaje);
+      event.target.reset(); 
+    } else {
+      alert("Error al procesar el expediente en el servidor.");
+    }
+  } catch (error) {
+    console.error("Error en la conexión:", error);
+    alert("Error de comunicacion con el backend. Verifica que el comando node server.js se encuentre activo.");
+  }
 }
 </script>
 
