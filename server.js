@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-const app = express();
+const app = use = express();
 app.use(cors());
 app.use(express.json());
 
@@ -114,6 +114,15 @@ app.post('/registro-seguridad', async (req, res) => {
 });
 app.post('/registro-identidad', async (req, res) => {
   try { const nuevo = new Identidad(req.body); await nuevo.save(); res.status(201).json({ mensaje: "Guardado" }); } catch (error) { res.status(400).json({ error: error.message }); }
+});
+
+const path = require('path');
+
+// AGREGADO: Esto le da permiso a Express de mostrar la imagen "1.png" cuando el HTML la pida
+app.use(express.static(__dirname));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(5000, () => console.log("Servidor SMILEDENT activo en el puerto 5000"));

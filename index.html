@@ -22,6 +22,9 @@ header {
 }
 header img { 
   vertical-align: middle; 
+  width: 80px; 
+  height: 80px;
+  border-radius: 8px; 
 }
 header span { 
   font-size: 30px; 
@@ -110,21 +113,20 @@ footer {
   text-align: center; 
   padding: 20px; 
 }
-
 .form-container {
   width: 100%;
-  margin: 20px auto 20px auto;
-  padding: 25px;
+  margin: 20px auto 25px auto;
+  padding: 30px;
   background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); 
-  border-top: 4px solid #333; 
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); 
+  border-top: 6px solid #333; 
   box-sizing: border-box;
 }
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 15px;
+  gap: 20px;
 }
 .form-group {
   margin-bottom: 5px;
@@ -134,22 +136,23 @@ footer {
 }
 .form-group label {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-weight: 600;
   color: #444;
-  font-size: 13px;
+  font-size: 14px;
 }
 .form-group input[type="text"], 
 .form-group input[type="number"], 
+.form-group input[type="date"],
 .form-group input[type="email"],
 .form-group select,
 .form-group textarea {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-family: "Poppins", sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   background-color: #fafafa;
   color: #333;
   box-sizing: border-box;
@@ -161,21 +164,21 @@ footer {
   outline: none;
   border-color: #333; 
   background-color: #fff;
-  box-shadow: 0 0 5px rgba(51, 51, 51, 0.2);
+  box-shadow: 0 0 5px rgba(51, 51, 51, 0.3);
 }
 .btn-submit {
   background-color: #333;
   color: white;
   border: none;
-  padding: 12px 15px;
+  padding: 14px 15px;
   width: 100%;
   border-radius: 6px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
   font-family: "Poppins", sans-serif;
   transition: background-color 0.3s ease;
-  margin-top: 10px;
+  margin-top: 15px;
   grid-column: span 2;
 }
 .btn-submit:hover {
@@ -198,7 +201,7 @@ footer {
 <body>
 
   <header>
-    <img src="1.png" width="80" alt="Logo SMILEDENT">
+    <img src="1.png" alt="Logo SMILEDENT">
     <span>SMILEDENT</span>
   </header>
 
@@ -208,7 +211,7 @@ footer {
       <ul>
         <li><a onclick="mostrarSeccion('inicio', this)" class="activo">Inicio</a></li>
         <li><a onclick="mostrarSeccion('agenda', this)">Agenda y Finanzas</a></li>
-        <li><a onclick="mostrarSeccion('seguridad', this)">Seguridad Clínica</a></li>
+        <li><a onclick="mostrarSeccion('seguridad', this)">Security Clínica</a></li>
         <li><a onclick="mostrarSeccion('identidad', this)">Identidad y Salud</a></li>
       </ul>
     </nav>
@@ -226,41 +229,41 @@ footer {
           <h2>Gestión de Agenda y Finanzas</h2>
           
           <div class="form-container">
-            <form onsubmit="guardarAgenda(event)">
+            <form onsubmit="validarRegistro(event)">
               <div class="form-grid">
                 <div class="form-group">
-                  <label>Paciente ID:</label>
-                  <input type="text" id="agenda-id" placeholder="Ej: 011" required>
+                  <label>ID del Paciente:</label>
+                  <input type="number" name="id_paciente" placeholder="Ej: 011" required>
                 </div>
                 <div class="form-group">
-                  <label>Nombre:</label>
-                  <input type="text" id="agenda-nombre" placeholder="Ej: Carlos Gómez" required>
+                  <label>Folio de Control:</label>
+                  <input type="text" name="folio" placeholder="Ej: ADM-2026-011" required>
+                </div>
+                <div class="form-group full-width">
+                  <label>Nombre Completo:</label>
+                  <input type="text" name="nombre" placeholder="Ej: Ana López García" required>
+                </div>
+                <div class="form-group full-width">
+                  <label>Archivo / Estudio Dental:</label>
+                  <input type="text" name="archivo" placeholder="Ej: Serie Periapical" required>
                 </div>
                 <div class="form-group">
-                  <label>Archivo/Estudio:</label>
-                  <input type="text" id="agenda-estudio" placeholder="Ej: Tomografía" required>
-                </div>
-                <div class="form-group">
-                  <label>Doctor(a):</label>
-                  <input type="text" id="agenda-doctor" placeholder="Ej: Dr. Hugo Torres" required>
+                  <label>Doctor(a) Asignado(a):</label>
+                  <input type="text" name="doctor" placeholder="Ej: Dra. Elena Morales" required>
                 </div>
                 <div class="form-group">
                   <label>Cédula:</label>
-                  <input type="text" id="agenda-cedula" placeholder="Ej: 6789012" required>
+                  <input type="text" name="cedula" placeholder="Ej: 1234560" required>
                 </div>
                 <div class="form-group">
-                  <label>Especialidad:</label>
-                  <input type="text" id="agenda-especialidad" placeholder="Ej: Prótesis" required>
+                  <label>Especialidad Médica:</label>
+                  <input type="text" name="especialidad" placeholder="Ej: Endodoncia" required>
                 </div>
                 <div class="form-group">
-                  <label>Pago ($):</label>
-                  <input type="number" id="agenda-pago" placeholder="Ej: 4500" required>
+                  <label>Costo del Tratamiento ($):</label>
+                  <input type="number" name="pago" placeholder="Ej: 2500" required>
                 </div>
-                <div class="form-group">
-                  <label>Folio:</label>
-                  <input type="text" id="agenda-folio" placeholder="Ej: ADM-2026-011" required>
-                </div>
-                <button type="submit" class="btn-submit">Guardar en Agenda y Finanzas</button>
+                <button type="submit" class="btn-submit">Guardar Registro en Agenda</button>
               </div>
             </form>
           </div>
@@ -278,7 +281,17 @@ footer {
                 <th>Folio</th>
               </tr>
             </thead>
-            <tbody id="cuerpo-agenda"></tbody>
+            <tbody>
+              <tr><td>002</td><td>Ana López</td><td>Serie Periapical</td><td>Dra. Elena Morales</td><td>1234560</td><td>Endodoncia</td><td>2500</td><td>ADM-2026-002</td></tr>
+              <tr><td>003</td><td>Jorge Ramírez</td><td>Set Fotográfico HD</td><td>Dr. Roberto Pérez</td><td>9876542</td><td>Rehabilitación</td><td>8000</td><td>ADM-2026-003</td></tr>
+              <tr><td>004</td><td>María Torres</td><td>Mapeo Intraoral</td><td>Dra. Sofía Sánchez</td><td>3456782</td><td>Odont. General</td><td>3500</td><td>ADM-2026-004</td></tr>
+              <tr><td>005</td><td>Luis Herrera</td><td>RX Digital Visiógrafo</td><td>Dr. Mario Ramírez</td><td>5678901</td><td>Endodoncia</td><td>4200</td><td>ADM-2026-005</td></tr>
+              <tr><td>006</td><td>Sofía Martínez</td><td>Cefalometría Computarizada</td><td>Dra. Lucía López</td><td>2345671</td><td>Ortodoncia</td><td>15000</td><td>ADM-2026-006</td></tr>
+              <tr><td>007</td><td>Ricardo Peña</td><td>RX Coronaria (Bitewing)</td><td>Dr. Hugo Torres</td><td>6789012</td><td>Prótesis</td><td>6000</td><td>ADM-2026-007</td></tr>
+              <tr><td>008</td><td>Elena Vega</td><td>Fotografía de Perfil Facial</td><td>Dra. Karla Castro</td><td>8901234</td><td>Odont. Estética</td><td>12000</td><td>ADM-2026-008</td></tr>
+              <tr><td>009</td><td>Pablo Ríos</td><td>Tomografía Cone Beam</td><td>Dr. Javier Ruiz</td><td>9012345</td><td>Implantología</td><td>20000</td><td>ADM-2026-009</td></tr>
+              <tr><td>010</td><td>Diana Solís</td><td>Registro Fotográfico Control</td><td>Dra. Mónica Ortiz</td><td>0123456</td><td>Periodoncia</td><td>12000</td><td>ADM-2026-010</td></tr>
+            </tbody>
           </table>
         </div>
 
@@ -286,33 +299,33 @@ footer {
           <h2>Clínica y Seguridad</h2>
           
           <div class="form-container">
-            <form onsubmit="guardarSeguridad(event)">
+            <form onsubmit="validarRegistro(event)">
               <div class="form-grid">
                 <div class="form-group">
-                  <label>Paciente ID:</label>
-                  <input type="text" id="seguridad-id" placeholder="Ej: 011" required>
+                  <label>ID del Paciente:</label>
+                  <input type="number" name="id_paciente" placeholder="Ej: 002" required>
                 </div>
                 <div class="form-group">
-                  <label>Hallazgo Clínico:</label>
-                  <input type="text" id="seguridad-hallazgo" placeholder="Ej: Fractura Coronaria pza 21" required>
+                  <label>Tipo de Seguridad (Encriptación):</label>
+                  <input type="text" name="seguridad_tipo" value="AES-256" required>
                 </div>
                 <div class="form-group full-width">
-                  <label>Evolución:</label>
-                  <input type="text" id="seguridad-evolucion" placeholder="Ej: Prep. corona E-max" required>
+                  <label>Hallazgo Clínico Inicial:</label>
+                  <textarea name="hallazgo_clinico" rows="2" placeholder="Ej: Tercer molar impactado / Edentulismo Parcial" required></textarea>
                 </div>
-                <div class="form-group">
-                  <label>Seguridad:</label>
-                  <input type="text" id="seguridad-cifrado" value="AES-256" readonly>
+                <div class="form-group full-width">
+                  <label>Evolución Clínica:</label>
+                  <input type="text" name="evolucion" placeholder="Ej: Cicatrización post-op / Ajuste protésico" required>
                 </div>
-                <div class="form-group">
-                  <label>Acceso:</label>
-                  <select id="seguridad-acceso">
+                <div class="form-group full-width">
+                  <label>Nivel de Acceso Autorizado:</label>
+                  <select name="acceso">
                     <option value="Nivel 3">Nivel 3</option>
                     <option value="Doctor">Doctor</option>
                     <option value="Admin">Admin</option>
                   </select>
                 </div>
-                <button type="submit" class="btn-submit">Guardar en Seguridad Clínica</button>
+                <button type="submit" class="btn-submit">Guardar Registro de Seguridad</button>
               </div>
             </form>
           </div>
@@ -327,7 +340,17 @@ footer {
                 <th>Acceso</th>
               </tr>
             </thead>
-            <tbody id="cuerpo-seguridad"></tbody>
+            <tbody>
+              <tr><td>002</td><td>Tercer molar impactado</td><td>Cicatrización post-op</td><td>AES-256</td><td>Nivel 3</td></tr>
+              <tr><td>003</td><td>Edentulismo Parcial</td><td>Ajuste protésico</td><td>AES-256</td><td>Doctor</td></tr>
+              <tr><td>004</td><td>Cromatismo dental</td><td>Sensibilidad dental</td><td>AES-256</td><td>Nivel 3</td></tr>
+              <tr><td>005</td><td>Absceso Periapical (K04.7)</td><td>Conductometría final</td><td>AES-256</td><td>Nivel 3</td></tr>
+              <tr><td>006</td><td>Maloclusión Clase II</td><td>Ajuste ortodoncia</td><td>AES-256</td><td>Nivel 3</td></tr>
+              <tr><td>007</td><td>Fractura Coronaria pza 21</td><td>Prep. corona E-max</td><td>AES-256</td><td>Doctor</td></tr>
+              <tr><td>008</td><td>Bruxismo / Desgaste</td><td>Impresión carillas</td><td>AES-256</td><td>Doctor</td></tr>
+              <tr><td>009</td><td>Reabsorción Ósea</td><td>Oseointegración</td><td>AES-256</td><td>Admin</td></tr>
+              <tr><td>010</td><td>Gingivitis por placa</td><td>Limpieza ultrasonido</td><td>AES-256</td><td>Nivel 3</td></tr>
+            </tbody>
           </table>
         </div>
 
@@ -335,49 +358,49 @@ footer {
           <h2>Identidad y Salud</h2>
           
           <div class="form-container">
-            <form onsubmit="guardarIdentidad(event)">
+            <form onsubmit="validarRegistro(event)">
               <div class="form-grid">
                 <div class="form-group">
-                  <label>ID:</label>
-                  <input type="text" id="identidad-id" placeholder="Ej: 011" required>
-                </div>
-                <div class="form-group">
-                  <label>Nombre:</label>
-                  <input type="text" id="identidad-nombre" placeholder="Ej: Ricardo Peña Luna" required>
+                  <label>ID del Paciente:</label>
+                  <input type="number" name="id_paciente" placeholder="Ej: 002" required>
                 </div>
                 <div class="form-group">
                   <label>RFC:</label>
-                  <input type="text" id="identidad-rfc" placeholder="Ej: PELR870705-PL0" required>
-                </div>
-                <div class="form-group">
-                  <label>Ocupación:</label>
-                  <input type="text" id="identidad-ocupacion" placeholder="Ej: Arquitecto" required>
+                  <input type="text" name="rfc" placeholder="Ej: LOGA910210-GT1" required>
                 </div>
                 <div class="form-group full-width">
-                  <label>Dirección:</label>
-                  <input type="text" id="identidad-direccion" placeholder="Ej: Amsterdam 14, CDMX" required>
-                </div>
-                <div class="form-group">
-                  <label>Condición Salud:</label>
-                  <input type="text" id="identidad-condicion" placeholder="Ej: Migraña e Ibuprofeno" required>
-                </div>
-                <div class="form-group">
-                  <label>Emergencia Contacto:</label>
-                  <input type="text" id="identidad-contacto" placeholder="Ej: Claudia Luna (55-4443-3322)" required>
-                </div>
-                <div class="form-group">
-                  <label>Teléfono:</label>
-                  <input type="text" id="identidad-telefono" placeholder="Ej: 55-4433-2211" required>
+                  <label>Nombre Completo:</label>
+                  <input type="text" name="nombre" placeholder="Ej: Ana López García" required>
                 </div>
                 <div class="form-group">
                   <label>Edad:</label>
-                  <input type="number" id="identidad-edad" placeholder="Ej: 37" required>
+                  <input type="number" name="edad" placeholder="Ej: 28" required>
+                </div>
+                <div class="form-group">
+                  <label>Ocupación:</label>
+                  <input type="text" name="ocupacion" placeholder="Ej: Docente" required>
+                </div>
+                <div class="form-group">
+                  <label>Teléfono:</label>
+                  <input type="text" name="telefono" placeholder="Ej: 55-1234-5678" required>
+                </div>
+                <div class="form-group">
+                  <label>Correo Electrónico:</label>
+                  <input type="email" name="email" placeholder="Ej: ana.logar@gmail.com" required>
                 </div>
                 <div class="form-group full-width">
-                  <label>Email:</label>
-                  <input type="email" id="identidad-email" placeholder="Ej: r.pena@gmail.com" required>
+                  <label>Dirección Particular:</label>
+                  <input type="text" name="direccion" placeholder="Ej: Insurgentes Sur 45, CDMX" required>
                 </div>
-                <button type="submit" class="btn-submit">Guardar en Identidad y Salud</button>
+                <div class="form-group full-width">
+                  <label>Contacto de Emergencia (Nombre y Teléfono):</label>
+                  <input type="text" name="contacto_emergencia" placeholder="Ej: Jorge López (55-1112-2233)" required>
+                </div>
+                <div class="form-group full-width">
+                  <label>Condición de Salud / Alergias:</label>
+                  <input type="text" name="condicion_salud" placeholder="Ej: Hipertensión / Hipertiroidismo / Sano" required>
+                </div>
+                <button type="submit" class="btn-submit">Guardar Datos Personales</button>
               </div>
             </form>
           </div>
@@ -397,7 +420,17 @@ footer {
                 <th>Email</th>
               </tr>
             </thead>
-            <tbody id="cuerpo-identidad"></tbody>
+            <tbody>
+              <tr><td>002</td><td>Ana López García</td><td>LOGA910210-GT1</td><td>Docente</td><td>Insurgentes Sur 45, CDMX</td><td>Sano</td><td>Jorge López (55-1112-2233)</td><td>55-1234-5678</td><td>28</td><td>ana.logar@gmail.com</td></tr>
+              <tr><td>003</td><td>Jorge Ramírez Soto</td><td>RASJ630320-LRS</td><td>Pensionado</td><td>Roma Nte. 88, CDMX</td><td>Hipertensión</td><td>María Soto (55-3334-4455)</td><td>55-8877-6655</td><td>62</td><td>jorge.ramirez@gmail.com</td></tr>
+              <tr><td>004</td><td>María Torres Díaz</td><td>TODM980412-RS2</td><td>Estudiante</td><td>Polanco Secc. 12, CDMX</td><td>Gastritis y Polvo</td><td>Rosa Díaz (55-7778-8899)</td><td>55-2233-4455</td><td>26</td><td>m.torres@gmail.com</td></tr>
+              <tr><td>005</td><td>Luis Herrera León</td><td>HELH740625-HS9</td><td>Comerciante</td><td>Del Valle 5, CDMX</td><td>Lipemia y Mariscos</td><td>Carmen León (55-1998-8776)</td><td>55-6655-4433</td><td>49</td><td>l.herrera@gmail.com</td></tr>
+              <tr><td>006</td><td>Sofía Martínez Cruz</td><td>MACS051122-RT4</td><td>Estudiante</td><td>Coyoacán 210, CDMX</td><td>Anemia leve</td><td>Pedro Martínez (55-6667-778)</td><td>55-0011-2233</td><td>21</td><td>sofia.mtz@gmail.com</td></tr>
+              <tr><td>007</td><td>Ricardo Peña Luna</td><td>PELR870705-PL0</td><td>Arquitecto</td><td>Amsterdam 14, CDMX</td><td>Migraña e Ibuprofeno</td><td>Claudia Luna (55-4443-3322)</td><td>55-4433-2211</td><td>37</td><td>r.pena@gmail.com</td></tr>
+              <tr><td>008</td><td>Elena Vega Blas</td><td>VEBE951010-VB3</td><td>Diseñadora</td><td>Santa Fe 400, CDMX</td><td>Asma y Látex</td><td>Alberto Vega (55-2221-1100)</td><td>55-7788-9900</td><td>30</td><td>e.vega@gmail.com</td></tr>
+              <tr><td>009</td><td>Pablo Ríos Mora</td><td>RIMP820315-RM7</td><td>Contador</td><td>Lindavista 402, CDMX</td><td>Hipertensión e Hipertiroidismo</td><td>Lucía Mora (55-9990-0011)</td><td>55-9900-1122</td><td>42</td><td>pablo.rios@gmail.com</td></tr>
+              <tr><td>010</td><td>Diana Solís Orta</td><td>SOOD921212-SO4</td><td>Abogada</td><td>Tlalpan Centro 9, CDMX</td><td>Sano</td><td>Sergio Solís (55-8889-9900)</td><td>55-3344-5566</td><td>33</td><td>diana.solis@gmail.com</td></tr>
+            </tbody>
           </table>
         </div>
 
@@ -413,164 +446,90 @@ footer {
     <p><strong>Especialidad:</strong> Programación</p>
   </footer>
 
-<script>
-const API_URL = "http://localhost:5000";
-
-function mostrarSeccion(idSeccion, elementoBoton) {
-  const secciones = document.querySelectorAll('.seccion-contenido');
-  secciones.forEach(sec => sec.classList.remove('activa'));
-
-  const botones = document.querySelectorAll('nav a');
-  botones.forEach(btn => btn.classList.remove('activo'));
-
-  document.getElementById(idSeccion).classList.add('activa');
-  elementoBoton.classList.add('activo');
-}
-
-window.addEventListener('DOMContentLoaded', cargarTodasLasTablas);
-
-async function cargarTodasLasTablas() {
-  try {
-    const resA = await fetch(`${API_URL}/registro-agenda`);
-    const datosAgenda = await resA.json();
-    const tbodyA = document.getElementById('cuerpo-agenda');
-    tbodyA.innerHTML = "";
-    datosAgenda.forEach(p => {
-      tbodyA.innerHTML += `<tr>
-        <td>${p.id_paciente}</td>
-        <td>${p.nombre}</td>
-        <td>${p.archivo_estudio}</td>
-        <td>${p.doctor}</td>
-        <td>${p.cedula}</td>
-        <td>${p.especialidad}</td>
-        <td>${p.pago}</td>
-        <td>${p.folio}</td>
-      </tr>`;
-    });
-
-    const resS = await fetch(`${API_URL}/registro-seguridad`);
-    const datosSeguridad = await resS.json();
-    const tbodyS = document.getElementById('cuerpo-seguridad');
-    tbodyS.innerHTML = "";
-    datosSeguridad.forEach(p => {
-      tbodyS.innerHTML += `<tr>
-        <td>${p.id_paciente}</td>
-        <td>${p.hallazgo_clinico}</td>
-        <td>${p.evolucion}</td>
-        <td>${p.seguridad}</td>
-        <td>${p.acceso}</td>
-      </tr>`;
-    });
-
-    const resI = await fetch(`${API_URL}/registro-identidad`);
-    const datosIdentidad = await resI.json();
-    const tbodyI = document.getElementById('cuerpo-identidad');
-    tbodyI.innerHTML = "";
-    datosIdentidad.forEach(p => {
-      tbodyI.innerHTML += `<tr>
-        <td>${p.id_paciente}</td>
-        <td>${p.nombre}</td>
-        <td>${p.rfc}</td>
-        <td>${p.ocupacion}</td>
-        <td>${p.direccion}</td>
-        <td>${p.condicion_salud}</td>
-        <td>${p.emergencia_contacto}</td>
-        <td>${p.telefono}</td>
-        <td>${p.edad}</td>
-        <td>${p.email}</td>
-      </tr>`;
-    });
-  } catch (error) {
-    console.error("Error al cargar datos:", error);
-  }
-}
-
-async function guardarAgenda(event) {
-  event.preventDefault();
-  const datos = {
-    id_paciente: document.getElementById('agenda-id').value,
-    nombre: document.getElementById('agenda-nombre').value,
-    archivo_estudio: document.getElementById('agenda-estudio').value,
-    doctor: document.getElementById('agenda-doctor').value,
-    cedula: document.getElementById('agenda-cedula').value,
-    especialidad: document.getElementById('agenda-especialidad').value,
-    pago: Number(document.getElementById('agenda-pago').value),
-    folio: document.getElementById('agenda-folio').value
-  };
-
-  try {
-    const res = await fetch(`${API_URL}/registro-agenda`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(datos)
-    });
-    if (res.ok) {
-      alert("¡Registro completo guardado exitosamente en el sistema!");
-      event.target.reset();
-      cargarTodasLasTablas();
+  <script>
+    function mostrarSeccion(idSeccion, elementoBoton) {
+      const secciones = document.querySelectorAll('.seccion-contenido');
+      secciones.forEach(sec => sec.classList.remove('activa'));
+    
+      const botones = document.querySelectorAll('nav a');
+      botones.forEach(btn => btn.classList.remove('activo'));
+    
+      document.getElementById(idSeccion).classList.add('activa');
+      elementoBoton.classList.add('activo');
     }
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-async function guardarSeguridad(event) {
-  event.preventDefault();
-  const datos = {
-    id_paciente: document.getElementById('seguridad-id').value,
-    hallazgo_clinico: document.getElementById('seguridad-hallazgo').value,
-    evolucion: document.getElementById('seguridad-evolucion').value,
-    seguridad: document.getElementById('seguridad-cifrado').value,
-    acceso: document.getElementById('seguridad-acceso').value
-  };
-
-  try {
-    const res = await fetch(`${API_URL}/registro-seguridad`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(datos)
-    });
-    if (res.ok) {
-      alert("¡Registro completo guardado exitosamente en el sistema!");
-      event.target.reset();
-      cargarTodasLasTablas();
+    
+    async function validarRegistro(event) {
+      event.preventDefault();
+    
+      const seccionPadre = event.target.closest('.seccion-contenido').id;
+      const formData = new FormData(event.target);
+      const datosFormulario = Object.fromEntries(formData.entries());
+      
+      let urlDestino = '';
+      let datosFormateados = {};
+    
+      if (seccionPadre === 'agenda') {
+        urlDestino = '/registro-agenda';
+        datosFormateados = {
+          id_paciente: datosFormulario.id_paciente,
+          nombre: datosFormulario.nombre,
+          archivo_estudio: datosFormulario.archivo,
+          doctor: datosFormulario.doctor,
+          cedula: datosFormulario.cedula,
+          especialidad: datosFormulario.especialidad,
+          pago: Number(datosFormulario.pago),
+          folio: datosFormulario.folio
+        };
+      } 
+      else if (seccionPadre === 'seguridad') {
+        urlDestino = '/registro-seguridad';
+        datosFormateados = {
+          id_paciente: datosFormulario.id_paciente,
+          hallazgo_clinico: datosFormulario.hallazgo_clinico,
+          evolucion: datosFormulario.evolucion,
+          seguridad: datosFormulario.seguridad_tipo || "AES-256",
+          acceso: datosFormulario.acceso
+        };
+      } 
+      else if (seccionPadre === 'identidad') {
+        urlDestino = '/registro-identidad';
+        datosFormateados = {
+          id_paciente: datosFormulario.id_paciente,
+          nombre: datosFormulario.nombre,
+          rfc: datosFormulario.rfc,
+          ocupacion: datosFormulario.ocupacion,
+          direccion: datosFormulario.direccion,
+          condicion_salud: datosFormulario.condicion_salud,
+          emergencia_contacto: datosFormulario.contacto_emergencia,
+          telefono: datosFormulario.telefono,
+          edad: Number(datosFormulario.edad),
+          email: datosFormulario.email
+        };
+      }
+    
+      try {
+        const respuesta = await fetch(urlDestino, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(datosFormateados)
+        });
+    
+        const resultado = await respuesta.json();
+    
+        if (respuesta.ok) {
+          alert("¡Éxito! El registro se guardó correctamente en MongoDB Atlas.");
+          event.target.reset();
+          setTimeout(() => { location.reload(); }, 500); 
+        } else {
+          alert("Error del servidor: " + (resultado.error || "No se pudo guardar."));
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Hubo un error al intentar conectar con el servidor backend. Revisa la terminal.");
+      }
     }
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-async function guardarIdentidad(event) {
-  event.preventDefault();
-  const datos = {
-    id_paciente: document.getElementById('identidad-id').value,
-    nombre: document.getElementById('identidad-nombre').value,
-    rfc: document.getElementById('identidad-rfc').value,
-    ocupacion: document.getElementById('identidad-ocupacion').value,
-    direccion: document.getElementById('identidad-direccion').value,
-    condicion_salud: document.getElementById('identidad-condicion').value,
-    emergencia_contacto: document.getElementById('identidad-contacto').value,
-    telefono: document.getElementById('identidad-telefono').value,
-    edad: Number(document.getElementById('identidad-edad').value),
-    email: document.getElementById('identidad-email').value
-  };
-
-  try {
-    const res = await fetch(`${API_URL}/registro-identidad`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(datos)
-    });
-    if (res.ok) {
-      alert("¡Registro completo guardado exitosamente en el sistema!");
-      event.target.reset();
-      cargarTodasLasTablas();
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}
-</script>
-
+    </script>
 </body>
 </html>
